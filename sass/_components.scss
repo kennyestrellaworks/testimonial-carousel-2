@@ -1,0 +1,125 @@
+// Heading
+.headingG1 {
+    font-size: $fontG2-Smallest;
+    line-height: 4.5rem;    
+    h1 { 
+        font-family: "Museo700 Regular", sans-serif;
+        color: $color-blue500;
+        text-transform: uppercase;
+    }
+    h4 { 
+        font-family: "Alice Regular", sans-serif;
+        color: $color-gray500; 
+    }
+}
+
+// Card
+.testimonial-card {
+    &__content {
+        background-color: $color-white;
+        box-shadow: 0 .4rem 1.2rem #88888859;
+        border-radius: .5rem;
+        position: relative;
+        background-image: linear-gradient(
+            170deg, 
+            rgba($color-blue500, 0.9) 0%, 
+            rgba($color-blue500, 0.9) 60%, 
+            transparent 40%);
+        margin: 1rem;
+    }
+    &__paragraph { 
+        text-align: center;
+        height: 22rem;
+        display: flex;
+        justify-content: center;
+        padding-top: 5rem;
+        & p {
+            font-size: $fontG1-Default;
+            color: $color-white;
+            width: 80%;
+        }
+    }
+    &__owner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 200;
+        margin-top: 2rem;
+        padding-bottom: 5rem;
+        &--name, &--job {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
+        &--name { 
+            color: $color-gray600;
+            margin-top: 1rem;
+        }
+        &--job { color: $color-gray500; }
+        &--picture {
+            border-radius: 50%;
+            height: 12rem;
+            width: 12rem;
+            border: .6rem solid $color-white;
+            object-fit: cover;
+        }
+        &--rating {
+            display: flex;
+            justify-content: center;
+            & svg {
+                fill: $color-yellow500;
+                &:not(:last-child) { margin-right: .5rem; }
+            }
+        }
+        &-links {
+            display: flex;
+            margin-top: .5rem;
+            &--icon:not(:last-child) { margin-right: .5rem; }
+            &--icon {
+                filter: grayscale(100%);
+                transition: all 0.5s;
+                &:hover { filter: grayscale(0); }             
+                & img {
+                    width: 3rem;
+                    height: 3rem;
+                }      
+            }
+        }
+    }
+}
+
+// Slider control
+.slider-control {
+    text-align: center;
+    &__container {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;        
+    }
+    &__buttons {
+        display: flex;
+        padding: 2rem;
+        background-color: $color-white;
+        cursor: pointer;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 .4rem 1.2rem #88888859;
+        transition: all 0.5s;
+        & svg { fill: $color-gray500; }
+        &:not(:last-child) { margin-right: 2rem; }
+        &-active:hover, &-active:active {
+            background-color: $color-blue600;
+            & svg {
+                fill: $color-white;            
+            }
+        }
+        &-disabled {
+            background-color: $color-gray300;
+            cursor: default;
+            & svg { fill: $color-gray400; }
+        }
+    }
+    &__left svg {
+        transform: rotate(180deg);
+        transition: all 0.5s;
+    }
+}

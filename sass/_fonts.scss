@@ -1,0 +1,93 @@
+// Font sizes ///////////
+// G1 starts at 1.2rem
+$fontG1-Smallest:1.2rem;
+$fontG1-Smaller: 1.4rem;
+$fontG1-Small: 1.6rem;
+$fontG1-Default: 1.8rem;
+$fontG1-Big: 2rem;
+$fontG1-Bigger: 2.2rem;
+$fontG1-Biggest: 2.4rem;
+$fontG1-Large: 2.6rem;
+$fontG1-Larger: 2.8rem;
+$fontG1-Largest: 3rem;
+// G2 starts at 3.2rem
+$fontG2-Smallest: 3.2rem;
+$fontG2-Smaller: 3.4rem;
+$fontG2-Small: 3.6rem;
+$fontG2-Default: 3.8rem;
+$fontG2-Big: 4rem;
+$fontG2-Bigger: 4.2rem;
+$fontG2-Biggest: 4.4rem;
+$fontG2-Large: 4.6rem;
+$fontG2-Larger: 4.8rem;
+$fontG2-Largest: 5rem;
+// G3 starts at 5.2rem
+$fontG3-Smallest: 5.2rem;
+$fontG3-Smaller: 5.4rem;
+$fontG3-Small: 5.6rem;
+$fontG3-Default: 5.8rem;
+$fontG3-Big: 6rem;
+$fontG3-Bigger: 6.2rem;
+$fontG3-Biggest: 6.4rem;
+$fontG3-Large: 6.6rem;
+$fontG3-Larger: 6.8rem;
+$fontG3-Largest: 7rem;
+// Font sizes end ///////////
+
+// Font families ///////////
+@font-face {
+    font-family: "Abel Regular";
+    src: url("../fonts/Abel-Regular-webfont.eot");
+    src: url("../fonts/Abel-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Abel-Regular-webfont.woff2") format("woff2"),
+        url("../fonts/Abel-Regular-webfont.woff") format("woff"),
+        url("../fonts/Abel-Regular-webfont.ttf") format("truetype"),
+        url("../fonts/Abel-Regular-webfont.svg#Abel_Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Alice Regular';
+    src: url('../fonts/Alice-Regular-webfont.eot');
+    src: url('../fonts/Alice-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Alice-Regular-webfont.woff2') format('woff2'),
+        url('../fonts/Alice-Regular-webfont.woff') format('woff'),
+        url('../fonts/Alice-Regular-webfont.ttf') format('truetype'),
+        url('../fonts/Alice-Regular-webfont.svg#Alice_Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PublicSans Regular';
+    src: url('../fonts/PublicSans-Regular-webfont.eot');
+    src: url('../fonts/PublicSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/PublicSans-Regular-webfont.woff2') format('woff2'),
+        url('../fonts/PublicSans-Regular-webfont.woff') format('woff'),
+        url('../fonts/PublicSans-Regular-webfont.ttf') format('truetype'),
+        url('../fonts/PublicSans-Regular-webfont.svg#PublicSans_Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Roboto Light";
+    src: url("../fonts/Roboto-Light-webfont.eot");
+    src: url("../fonts/Roboto-Light-webfont.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Roboto-Light-webfont.woff2") format("woff2"),
+        url("../fonts/Roboto-Light-webfont.woff") format("woff"),
+        url("../fonts/Roboto-Light-webfont.ttf") format("truetype"),
+        url("../fonts/Roboto-Light-webfont.svg#Roboto_Light") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Museo700 Regular";
+    src: url("../fonts/Museo700-Regular-webfont.eot");
+    src: url("../fonts/Museo700-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/Museo700-Regular-webfont.woff2") format("woff2"),
+        url("../fonts/Museo700-Regular-webfont.woff") format("woff"),
+        url("../fonts/Museo700-Regular-webfont.ttf") format("truetype"),
+        url("../fonts/Museo700-Regular-webfont.svg#Museo700_Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+// Font families end ///////////

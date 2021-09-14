@@ -1,0 +1,40 @@
+.testimonial {
+    height: 100vh;
+    position: relative;
+    background-color: $color-blue100;
+    &__container {
+        //max-width: $width-G1-Bigger;
+        position: relative;
+        margin: 0 auto;
+        height: 100vh;
+        &-wrap {
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            width: 100%;
+        }
+        & .headingG1 {
+            width: 100%;
+            text-align: center;
+        }        
+    }
+    &__content {
+        margin-top: 5rem;
+        &-wrap {
+            overflow: hidden;
+            padding: 2rem 0 2rem 0;
+        }
+    }
+    &__slide {
+        width: 300rem;
+        &-wrap {
+            display: flex;
+            flex-direction: row;
+            transition: all .5s ease-in;
+        }
+        &-container {
+            display: flex;
+            flex-direction: row;
+        }      
+    }
+}

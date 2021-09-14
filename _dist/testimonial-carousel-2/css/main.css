@@ -1,0 +1,236 @@
+@font-face {
+  font-family: "Abel Regular";
+  src: url("../fonts/Abel-Regular-webfont.eot");
+  src: url("../fonts/Abel-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Abel-Regular-webfont.woff2") format("woff2"), url("../fonts/Abel-Regular-webfont.woff") format("woff"), url("../fonts/Abel-Regular-webfont.ttf") format("truetype"), url("../fonts/Abel-Regular-webfont.svg#Abel_Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Alice Regular";
+  src: url("../fonts/Alice-Regular-webfont.eot");
+  src: url("../fonts/Alice-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Alice-Regular-webfont.woff2") format("woff2"), url("../fonts/Alice-Regular-webfont.woff") format("woff"), url("../fonts/Alice-Regular-webfont.ttf") format("truetype"), url("../fonts/Alice-Regular-webfont.svg#Alice_Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PublicSans Regular";
+  src: url("../fonts/PublicSans-Regular-webfont.eot");
+  src: url("../fonts/PublicSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/PublicSans-Regular-webfont.woff2") format("woff2"), url("../fonts/PublicSans-Regular-webfont.woff") format("woff"), url("../fonts/PublicSans-Regular-webfont.ttf") format("truetype"), url("../fonts/PublicSans-Regular-webfont.svg#PublicSans_Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Light";
+  src: url("../fonts/Roboto-Light-webfont.eot");
+  src: url("../fonts/Roboto-Light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Light-webfont.woff2") format("woff2"), url("../fonts/Roboto-Light-webfont.woff") format("woff"), url("../fonts/Roboto-Light-webfont.ttf") format("truetype"), url("../fonts/Roboto-Light-webfont.svg#Roboto_Light") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Museo700 Regular";
+  src: url("../fonts/Museo700-Regular-webfont.eot");
+  src: url("../fonts/Museo700-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Museo700-Regular-webfont.woff2") format("woff2"), url("../fonts/Museo700-Regular-webfont.woff") format("woff"), url("../fonts/Museo700-Regular-webfont.ttf") format("truetype"), url("../fonts/Museo700-Regular-webfont.svg#Museo700_Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Abel Regular";
+  line-height: 1.3;
+  font-size: 1.6rem;
+  background-color: #fff;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+.headingG1 {
+  font-size: 3.2rem;
+  line-height: 4.5rem;
+}
+.headingG1 h1 {
+  font-family: "Museo700 Regular", sans-serif;
+  color: #4299E1;
+  text-transform: uppercase;
+}
+.headingG1 h4 {
+  font-family: "Alice Regular", sans-serif;
+  color: #A0AEC0;
+}
+
+.testimonial-card__content {
+  background-color: #fff;
+  box-shadow: 0 0.4rem 1.2rem #88888859;
+  border-radius: 0.5rem;
+  position: relative;
+  background-image: linear-gradient(170deg, rgba(66, 153, 225, 0.9) 0%, rgba(66, 153, 225, 0.9) 60%, transparent 40%);
+  margin: 1rem;
+}
+.testimonial-card__paragraph {
+  text-align: center;
+  height: 22rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+}
+.testimonial-card__paragraph p {
+  font-size: 1.8rem;
+  color: #fff;
+  width: 80%;
+}
+.testimonial-card__owner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 200;
+  margin-top: 2rem;
+  padding-bottom: 5rem;
+}
+.testimonial-card__owner--name, .testimonial-card__owner--job {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+.testimonial-card__owner--name {
+  color: #718096;
+  margin-top: 1rem;
+}
+.testimonial-card__owner--job {
+  color: #A0AEC0;
+}
+.testimonial-card__owner--picture {
+  border-radius: 50%;
+  height: 12rem;
+  width: 12rem;
+  border: 0.6rem solid #fff;
+  object-fit: cover;
+}
+.testimonial-card__owner--rating {
+  display: flex;
+  justify-content: center;
+}
+.testimonial-card__owner--rating svg {
+  fill: #ECC94B;
+}
+.testimonial-card__owner--rating svg:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.testimonial-card__owner-links {
+  display: flex;
+  margin-top: 0.5rem;
+}
+.testimonial-card__owner-links--icon:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.testimonial-card__owner-links--icon {
+  filter: grayscale(100%);
+  transition: all 0.5s;
+}
+.testimonial-card__owner-links--icon:hover {
+  filter: grayscale(0);
+}
+.testimonial-card__owner-links--icon img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.slider-control {
+  text-align: center;
+}
+.slider-control__container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.slider-control__buttons {
+  display: flex;
+  padding: 2rem;
+  background-color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0.4rem 1.2rem #88888859;
+  transition: all 0.5s;
+}
+.slider-control__buttons svg {
+  fill: #A0AEC0;
+}
+.slider-control__buttons:not(:last-child) {
+  margin-right: 2rem;
+}
+.slider-control__buttons-active:hover, .slider-control__buttons-active:active {
+  background-color: #3182CE;
+}
+.slider-control__buttons-active:hover svg, .slider-control__buttons-active:active svg {
+  fill: #fff;
+}
+.slider-control__buttons-disabled {
+  background-color: #E2E8F0;
+  cursor: default;
+}
+.slider-control__buttons-disabled svg {
+  fill: #CBD5E0;
+}
+.slider-control__left svg {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+.testimonial {
+  height: 100vh;
+  position: relative;
+  background-color: #EBF8FF;
+}
+.testimonial__container {
+  position: relative;
+  margin: 0 auto;
+  height: 100vh;
+}
+.testimonial__container-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+}
+.testimonial__container .headingG1 {
+  width: 100%;
+  text-align: center;
+}
+.testimonial__content {
+  margin-top: 5rem;
+}
+.testimonial__content-wrap {
+  overflow: hidden;
+  padding: 2rem 0 2rem 0;
+}
+.testimonial__slide {
+  width: 300rem;
+}
+.testimonial__slide-wrap {
+  display: flex;
+  flex-direction: row;
+  transition: all 0.5s ease-in;
+}
+.testimonial__slide-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/*# sourceMappingURL=main.css.map */

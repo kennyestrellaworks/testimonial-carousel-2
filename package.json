@@ -1,0 +1,25 @@
+{
+  "name": "testimonial-v2-1a",
+  "version": "1.0.0",
+  "description": "A dynamic carousel component, hard-coded, purely Vanilla JavaScript",
+  "browserslist": "last 10 versions",
+  "main": "save-snippets-1.js",
+  "scripts": {
+    "watchSass": "sass --watch sass/main.scss:css/main.css",
+    "compileSass": "sass sass/main.scss:css/main.css",
+    "liveServer": "live-server",
+    "prefixCSS": "postcss css/main.css --use autoprefixer -o css/style.css",
+    "startDev": "npm-run-all --parallel watchSass liveServer"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.3.4",
+    "live-server": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "sass": "^1.40.1"
+  }
+}
