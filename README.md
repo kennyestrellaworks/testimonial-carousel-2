@@ -8,9 +8,17 @@ This is a project I started last July 2021 and finished just this month which I 
 
 ![](project-preview.jpg)
 
+###  Used tools
+
+<img width="22px" src="photoshop-plain.svg"> <img width="22px" src="illustrator-plain.svg"> <img width="22px" src="xd-plain.svg">
+
+### Used technologies
+<img width="22px" src="html5-plain.svg"> <img width="22px" src="javascript-original.svg"> <img width="22px" src="sass-original.svg"> <img width="22px" src="npm-original-wordmark.svg">
+
 Live Site URL: [Live Demo](https://kennyestrella-testimonial-carousel-2.netlify.app/)
 
 This is still a **WORK IN-PROGRESS**, where I'm still fixing bugs.
 
+- Next session might be adding a button and modal in every item where the testimonial message is long.
 - Sep 16 2021, Fixed bugs on left and right slide functionalities.
 - Sep 15 2021, Uploaded source files in this platform and hosted on Netlify.
