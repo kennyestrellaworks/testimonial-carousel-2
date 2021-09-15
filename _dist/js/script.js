@@ -29,6 +29,7 @@ const setup = {
     browserWidth: 0,
     defaultQuotient: 0,
     defaultModulu: 0,
+    extraSlide: 0,
     valueTest1: 0,
     valueTest2: 0,
     valueTest3: 0,
@@ -106,28 +107,30 @@ class Data {
 }
 
 class UI {
-    // Receives 'slide button DOM' & enables it.
-    static enableButton(buttonElement) {
-        buttonElement.classList.remove('slider-control__buttons-disabled')
-        buttonElement.classList.add('slider-control__buttons-active')
+    // Receives 'slide button DOM' & classes to be 'removed' or 'added', then enables it.
+    static enableButton(buttonElement, removeClass, addClass) {
+        buttonElement.classList.remove(removeClass)        
+        buttonElement.classList.add(addClass)
+        buttonElement.disabled = false
     }
-    // Receives 'slide button DOM' & disables it.
-    static disableButton(buttonElement) {
-        buttonElement.classList.add('slider-control__buttons-disabled')
-        buttonElement.classList.remove('slider-control__buttons-active')
+    // Receives 'slide button DOM' & classes to be 'removed' or 'added', then disables it.
+    static disableButton(buttonElement, removeClass, addClass) {        
+        buttonElement.classList.remove(removeClass)
+        buttonElement.classList.add(addClass)
+        buttonElement.disabled = true
     }
     static disableEnableSlideButtons() {
-        // Enable or disable 'left slide button'.
-        if (cardSlide.cardSlidLeft == setup.cardTotal || cardSlide.cardSlidLeft == 0) {
-            this.disableButton(DOMStrings.sliderControlLeft)
-        } else {
-            this.enableButton(DOMStrings.sliderControlLeft)
-        }
         // Enable or disable 'right slide button'.
-        if (cardSlide.cardSlidRight == setup.cardTotal || cardSlide.cardSlidRight == 0) {
-            this.disableButton(DOMStrings.sliderControlRight)
+        if (cardSlide.slideCountAll != cardSlide.slideCountRight) {
+            this.enableButton(DOMStrings.sliderControlRight, 'slider-control__buttons-disabled', 'slider-control__buttons-active')
         } else {
-            this.enableButton(DOMStrings.sliderControlRight)
+            this.disableButton(DOMStrings.sliderControlRight, 'slider-control__buttons-active', 'slider-control__buttons-disabled')
+        }
+        // Enable or disable 'left slide button'.
+        if (cardSlide.slideCountRight != 1) {
+            this.enableButton(DOMStrings.sliderControlLeft, 'slider-control__buttons-disabled', 'slider-control__buttons-active')
+        } else {
+            this.disableButton(DOMStrings.sliderControlLeft, 'slider-control__buttons-active', 'slider-control__buttons-disabled')
         }
     }
     static showOwnerLinks(testimonial_items) {
@@ -369,6 +372,14 @@ class Slide {
             setup.slideInterval = setup.browserWidth / 10
         } 
     }
+    // Putting common 'slide function call' into one function.
+    static doSlidingProcess() {
+        Slide.doSlideCountRight()
+        Slide.doSlideCountLeft()
+        Slide.doCardSlidRemaining()
+        Slide.doSlideCountRightRemaining()
+        Slide.doSlideCountLeftRemaining()  
+    }
     // Identify remaining items after the card slid.
     static doCardSlidRemaining() {
         cardSlide.cardSlidRightRemaining = Slide.computeDifference(setup.cardTotal, cardSlide.cardSlidRight)
@@ -439,43 +450,33 @@ DOMStrings.sliderControlRight.addEventListener('click', function() {
     
     if (setup.isCardSlidAll == false) {
         if (cardSlide.slideCountRight < cardSlide.slideCountAllQuotient) {
+            setup.valueTest2 = 'RIGHT SLIDE 1'
             setup.slideInterval = cardSlide.cardSlidRight * setup.cardWidth
             Slide.processTranslation('translateX')
             cardSlide.cardSlidRight += setup.divider
             if (cardSlide.cardSlidLeft != 0) { cardSlide.cardSlidLeft -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()           
+            Slide.doSlidingProcess() // This is actually a 5 function call.   
             traceValues('RIGHT SLIDE')
-        } else if (cardSlide.slideCountRight == cardSlide.slideCountAllQuotient) {    
-            let extraSlide = 0
-            extraSlide = setup.cardTotal - cardSlide.cardSlidRight
-            setup.slideInterval = setup.slideInterval + (setup.cardWidth * extraSlide)        
+        } else if (cardSlide.slideCountRight == cardSlide.slideCountAllQuotient) {
+            setup.valueTest2 = 'RIGHT SLIDE 2'
+            setup.extraSlide = Slide.computeDifference(setup.cardTotal, cardSlide.cardSlidRight)
+            setup.slideInterval = setup.slideInterval + (setup.cardWidth * setup.extraSlide)        
             Slide.processTranslation('translateX')
-            cardSlide.cardSlidRight += extraSlide
-            if (setup.defaultModulu != 0) { cardSlide.cardSlidLeft -= setup.divider }
+            cardSlide.cardSlidRight += setup.extraSlide
+            if (cardSlide.cardSlidLeft != 0) { cardSlide.cardSlidLeft -= setup.divider }
             cardSlide.cardSlidLeft = setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             setup.isCardSlidAll = true
             traceValues('RIGHT SLIDE')
         }
     } else {
         if (cardSlide.slideCountLeft != 1) {
+            setup.valueTest2 = 'RIGHT SLIDE 3'
             setup.slideInterval = cardSlide.cardSlidRight * setup.cardWidth
             Slide.processTranslation('translateX')
             cardSlide.cardSlidRight += setup.divider
-            if (setup.defaultModulu != 0) { cardSlide.cardSlidLeft -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            cardSlide.cardSlidLeft -= setup.divider
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             traceValues('RIGHT SLIDE')
         }        
         if (cardSlide.cardSlidRight == setup.cardTotal) { setup.isCardSlidAll = true }
@@ -491,49 +492,50 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
     
     if (setup.isCardSlidAll == true) {
         if (cardSlide.slideCountLeft < cardSlide.slideCountAllQuotient) {
-            setup.valueTest1 = '1'
+            setup.valueTest1 = 'LEFT SLIDE 1'
             setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.divider)
             Slide.processTranslation('translateX')
             cardSlide.cardSlidLeft += setup.divider
-            if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
-            traceValues('LEFT SLIDE')
+            cardSlide.cardSlidRight -= setup.divider
+            Slide.doSlidingProcess() // This is actually a 5 function call.
+            traceValues('LEFT SLIDE')            
         } else if (cardSlide.slideCountLeft == cardSlide.slideCountAllQuotient) {
-            setup.valueTest1 = '2'
-            let extraSlide = 0
-            extraSlide = setup.cardTotal - cardSlide.cardSlidLeft
-            setup.slideInterval = setup.slideInterval - (setup.cardWidth * extraSlide)
+            setup.valueTest1 = 'LEFT SLIDE 2'
+            setup.extraSlide = Slide.computeDifference(setup.cardTotal, cardSlide.cardSlidLeft)
+            setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.extraSlide)
             Slide.processTranslation('translateX')
-            cardSlide.cardSlidLeft += extraSlide
-            if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
+            cardSlide.cardSlidLeft += setup.extraSlide
             cardSlide.cardSlidRight = setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             setup.isCardSlidAll = false
-            traceValues('LEFT SLIDE')
+            traceValues('LEFT SLIDE')            
         }
-    } else {      
-        setup.valueTest1 = '3'
-        if (cardSlide.slideCountRight != 1) {         
-            setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.divider)
-            Slide.processTranslation('translateX')
-            cardSlide.cardSlidLeft += setup.divider
-            if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
-            traceValues('LEFT SLIDE')          
-        }        
-        if (cardSlide.cardSlidLeft == setup.cardTotal) { setup.isCardSlidAll = false }
+    } else {
+        if (cardSlide.cardSlidRight <= setup.slideDivider && cardSlide.cardSlidRight != 1) {
+            setup.valueTest1 = 'LEFT SLIDE 3'
+            let difference = 0
+            difference = cardSlide.cardSlidRight - setup.divider
+            if (difference != 0) {
+                setup.slideInterval = setup.slideInterval - setup.cardWidth
+                Slide.processTranslation('translateX')
+                cardSlide.cardSlidLeft += setup.divider
+                if (cardSlide.cardSlidRight != 1) { cardSlide.cardSlidRight -= setup.divider }
+                Slide.doSlidingProcess() // This is actually a 5 function call.
+                setup.isCardSlidAll = false
+                traceValues('LEFT SLIDE') 
+            }                       
+        } else {
+            if (cardSlide.slideCountRight != 1) {
+                setup.valueTest1 = 'LEFT SLIDE 4'
+                setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.divider)
+                Slide.processTranslation('translateX')
+                cardSlide.cardSlidLeft += setup.divider
+                if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
+                Slide.doSlidingProcess() // This is actually a 5 function call.
+                setup.isCardSlidAll = false
+                traceValues('LEFT SLIDE')                
+            }
+        }
     }
     UI.disableEnableSlideButtons()
 
@@ -568,25 +570,17 @@ window.addEventListener('resize', function() {
     if (setup.isSlideButtonsActive == true) {
         if (setup.cardDisplayed < setup.slideDivider) {
             if (cardSlide.cardSlidRight < setup.slideDivider) {
-                setup.valueTest1 = `cardSlidRight: ${cardSlide.cardSlidRight} LESS THAN slideDivider : ${setup.slideDivider}`
                 cardSlide.cardSlidRight = (setup.slideDivider - cardSlide.cardSlidRight) + cardSlide.cardSlidRight                
             } 
         }
         setup.isCardSlidAll = false
         cardSlide.cardSlidLeft = 0
-        //cardSlide.cardSlidLeft = setup.cardTotal 
-        // Identify remaining items after the card slid.
         Slide.doCardSlidRemaining()
-        // Making values for the 'slide' by default.
         Slide.doSlideCountAll()
-        // Making values for the 'slide count right'.
         Slide.doSlideCountRight()
         Slide.doSlideCountRightRemaining()
-        // Making values for the 'slide count left'.
         Slide.doSlideCountLeft()
-        Slide.doSlideCountLeftRemaining()       
-        setup.valueTest2 = `1 cardSlidRight : ${cardSlide.cardSlidRight} / divider : ${setup.divider}`
-        setup.valueTest3 = `cardSlidRightRemaining : ${cardSlide.cardSlidRightRemaining}`
+        Slide.doSlideCountLeftRemaining()
     }     
     // Process 'translation'.
     Slide.processTranslation('translateX')
@@ -597,9 +591,8 @@ window.addEventListener('resize', function() {
 // Start page load.
 document.addEventListener('DOMContentLoaded', function() {    
     setup.eventState = 'page load'
-    const data = Data.getData()
-    console.log(`data is : ${data}`)
-    // Getting data from 'data.json'.
+    // Getting data from 'data.js object'. 
+    const data = Data.getData()   
     // Displaying testimonial card items.              
     UI.showTestimonial(data)
     // Displaying testimonial ratings.
@@ -635,7 +628,7 @@ document.addEventListener('DOMContentLoaded', function() {
     Slide.doSlideCountLeftRemaining()   
     // Disabling 'left slide' button & enabling 'right slide' button.
     UI.disableEnableSlideButtons()   
-    
+
     traceValues('PAGE LOAD')  
 }) // End page load.
 
