@@ -372,6 +372,14 @@ class Slide {
             setup.slideInterval = setup.browserWidth / 10
         } 
     }
+    // Putting common 'slide function call' into one function.
+    static doSlidingProcess() {
+        Slide.doSlideCountRight()
+        Slide.doSlideCountLeft()
+        Slide.doCardSlidRemaining()
+        Slide.doSlideCountRightRemaining()
+        Slide.doSlideCountLeftRemaining()  
+    }
     // Identify remaining items after the card slid.
     static doCardSlidRemaining() {
         cardSlide.cardSlidRightRemaining = Slide.computeDifference(setup.cardTotal, cardSlide.cardSlidRight)
@@ -447,11 +455,7 @@ DOMStrings.sliderControlRight.addEventListener('click', function() {
             Slide.processTranslation('translateX')
             cardSlide.cardSlidRight += setup.divider
             if (cardSlide.cardSlidLeft != 0) { cardSlide.cardSlidLeft -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()           
+            Slide.doSlidingProcess() // This is actually a 5 function call.   
             traceValues('RIGHT SLIDE')
         } else if (cardSlide.slideCountRight == cardSlide.slideCountAllQuotient) {
             setup.valueTest2 = 'RIGHT SLIDE 2'
@@ -461,11 +465,7 @@ DOMStrings.sliderControlRight.addEventListener('click', function() {
             cardSlide.cardSlidRight += setup.extraSlide
             if (cardSlide.cardSlidLeft != 0) { cardSlide.cardSlidLeft -= setup.divider }
             cardSlide.cardSlidLeft = setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             setup.isCardSlidAll = true
             traceValues('RIGHT SLIDE')
         }
@@ -476,11 +476,7 @@ DOMStrings.sliderControlRight.addEventListener('click', function() {
             Slide.processTranslation('translateX')
             cardSlide.cardSlidRight += setup.divider
             cardSlide.cardSlidLeft -= setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             traceValues('RIGHT SLIDE')
         }        
         if (cardSlide.cardSlidRight == setup.cardTotal) { setup.isCardSlidAll = true }
@@ -501,11 +497,7 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
             Slide.processTranslation('translateX')
             cardSlide.cardSlidLeft += setup.divider
             cardSlide.cardSlidRight -= setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             traceValues('LEFT SLIDE')            
         } else if (cardSlide.slideCountLeft == cardSlide.slideCountAllQuotient) {
             setup.valueTest1 = 'LEFT SLIDE 2'
@@ -514,11 +506,7 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
             Slide.processTranslation('translateX')
             cardSlide.cardSlidLeft += setup.extraSlide
             cardSlide.cardSlidRight = setup.divider
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
+            Slide.doSlidingProcess() // This is actually a 5 function call.
             setup.isCardSlidAll = false
             traceValues('LEFT SLIDE')            
         }
@@ -532,11 +520,7 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
                 Slide.processTranslation('translateX')
                 cardSlide.cardSlidLeft += setup.divider
                 if (cardSlide.cardSlidRight != 1) { cardSlide.cardSlidRight -= setup.divider }
-                Slide.doSlideCountRight()
-                Slide.doSlideCountLeft()
-                Slide.doCardSlidRemaining()
-                Slide.doSlideCountRightRemaining()
-                Slide.doSlideCountLeftRemaining()
+                Slide.doSlidingProcess() // This is actually a 5 function call.
                 setup.isCardSlidAll = false
                 traceValues('LEFT SLIDE') 
             }                       
@@ -547,11 +531,7 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
                 Slide.processTranslation('translateX')
                 cardSlide.cardSlidLeft += setup.divider
                 if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
-                Slide.doSlideCountRight()
-                Slide.doSlideCountLeft()
-                Slide.doCardSlidRemaining()
-                Slide.doSlideCountRightRemaining()
-                Slide.doSlideCountLeftRemaining()
+                Slide.doSlidingProcess() // This is actually a 5 function call.
                 setup.isCardSlidAll = false
                 traceValues('LEFT SLIDE')                
             }
