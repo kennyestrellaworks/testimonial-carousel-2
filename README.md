@@ -10,4 +10,4 @@ This is a project I started last July 2021 and finished just this month which I 
 
 Live Site URL: [Live Demo](https://kennyestrella-testimonial-carousel-2.netlify.app/)
 
-This is still a work in-progress where I'm still fixing bugs.
+This is still a **WORK IN-PROGRESS**, where I'm still fixing bugs.
