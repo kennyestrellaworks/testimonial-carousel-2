@@ -13,4 +13,5 @@ Live Site URL: [Live Demo](https://kennyestrella-testimonial-carousel-2.netlify.
 This is still a **WORK IN-PROGRESS**, where I'm still fixing bugs.
 
 Sep 16 2021 - Fixed bugs on left and right slide functionalities.
+
 Sep 15 2021 - Uploaded source files in this platform and hosted on Netlify.
