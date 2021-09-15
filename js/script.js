@@ -106,28 +106,26 @@ class Data {
 }
 
 class UI {
-    // Receives 'slide button DOM' & enables it.
-    static enableButton(buttonElement) {
-        buttonElement.classList.remove('slider-control__buttons-disabled')
-        buttonElement.classList.add('slider-control__buttons-active')
+    // Receives 'slide button DOM' & classes to be 'removed' or 'added', then enables it.
+    static enableButton(buttonElement, removeClass, addClass) {
+        buttonElement.classList.remove(removeClass)
+        buttonElement.classList.add(addClass)
     }
-    // Receives 'slide button DOM' & disables it.
-    static disableButton(buttonElement) {
-        buttonElement.classList.add('slider-control__buttons-disabled')
-        buttonElement.classList.remove('slider-control__buttons-active')
+    // Receives 'slide button DOM' & classes to be 'removed' or 'added', then disables it.
+    static disableButton(buttonElement, removeClass, addClass) {        
+        buttonElement.classList.remove(removeClass)
+        buttonElement.classList.add(addClass)
     }
     static disableEnableSlideButtons() {
-        // Enable or disable 'left slide button'.
-        if (cardSlide.cardSlidLeft == setup.cardTotal || cardSlide.cardSlidLeft == 0) {
-            this.disableButton(DOMStrings.sliderControlLeft)
+        if (cardSlide.cardSlidLeft == (setup.cardTotal - setup.divider)) {
+            this.disableButton(DOMStrings.sliderControlLeft, 'slider-control__buttons-active', 'slider-control__buttons-disabled')
         } else {
-            this.enableButton(DOMStrings.sliderControlLeft)
+            this.enableButton(DOMStrings.sliderControlLeft, 'slider-control__buttons-disabled', 'slider-control__buttons-active')
         }
-        // Enable or disable 'right slide button'.
-        if (cardSlide.cardSlidRight == setup.cardTotal || cardSlide.cardSlidRight == 0) {
-            this.disableButton(DOMStrings.sliderControlRight)
+        if (cardSlide.cardSlidRight == setup.cardTotal) {
+            this.disableButton(DOMStrings.sliderControlRight, 'slider-control__buttons-active', 'slider-control__buttons-disabled')
         } else {
-            this.enableButton(DOMStrings.sliderControlRight)
+            this.enableButton(DOMStrings.sliderControlRight, 'slider-control__buttons-disabled', 'slider-control__buttons-active')
         }
     }
     static showOwnerLinks(testimonial_items) {
@@ -516,22 +514,36 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
             Slide.doCardSlidRemaining()
             Slide.doSlideCountRightRemaining()
             Slide.doSlideCountLeftRemaining()
+            if (cardSlide.cardSlidLeft == setup.cardTotal) { cardSlide.cardSlidLeft -= setup.divider }
             setup.isCardSlidAll = false
             traceValues('LEFT SLIDE')
         }
     } else {      
-        setup.valueTest1 = '3'
-        if (cardSlide.slideCountRight != 1) {         
-            setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.divider)
-            Slide.processTranslation('translateX')
-            cardSlide.cardSlidLeft += setup.divider
-            if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
-            Slide.doSlideCountRight()
-            Slide.doSlideCountLeft()
-            Slide.doCardSlidRemaining()
-            Slide.doSlideCountRightRemaining()
-            Slide.doSlideCountLeftRemaining()
-            traceValues('LEFT SLIDE')          
+        if (cardSlide.slideCountRight != 1) { 
+            if (cardSlide.cardSlidLeftRemaining < setup.slideDivider) {
+                setup.valueTest1 = '1 it reached here'
+                setup.slideInterval = setup.slideInterval - (setup.cardWidth * cardSlide.slideCountAllModulu)
+                Slide.processTranslation('translateX')
+                Slide.doSlideCountRight()
+                Slide.doSlideCountLeft()
+                Slide.doCardSlidRemaining()
+                Slide.doSlideCountRightRemaining()
+                Slide.doSlideCountLeftRemaining()
+                if (cardSlide.cardSlidLeft == setup.cardTotal) { cardSlide.cardSlidLeft -= setup.divider }
+                traceValues('LEFT SLIDE') 
+            } else {
+                setup.valueTest1 = '2 it reached here'
+                setup.slideInterval = setup.slideInterval - (setup.cardWidth * setup.divider)  
+                Slide.processTranslation('translateX')          
+                cardSlide.cardSlidLeft += setup.divider
+                if (cardSlide.cardSlidRight != 0) { cardSlide.cardSlidRight -= setup.divider }
+                Slide.doSlideCountRight()
+                Slide.doSlideCountLeft()
+                Slide.doCardSlidRemaining()
+                Slide.doSlideCountRightRemaining()
+                Slide.doSlideCountLeftRemaining()
+                traceValues('LEFT SLIDE') 
+            }            
         }        
         if (cardSlide.cardSlidLeft == setup.cardTotal) { setup.isCardSlidAll = false }
     }
@@ -541,7 +553,7 @@ DOMStrings.sliderControlLeft.addEventListener('click', function() {
 
 // Start window resize.
 window.addEventListener('resize', function() {
-    setup.eventState = 'browser resize'
+    setup.eventState = 'browser resize'    
     // Getting 'window.innerWidth'.
     Card.doBrowserWidth()
     // Make container width, DOMStrings.testimonialContainer'.
@@ -567,14 +579,14 @@ window.addEventListener('resize', function() {
     // Some problems on the placement of 'cards displayed'.
     if (setup.isSlideButtonsActive == true) {
         if (setup.cardDisplayed < setup.slideDivider) {
+            cardSlide.cardSlidLeft = setup.cardTotal - cardSlide.cardSlidRight
             if (cardSlide.cardSlidRight < setup.slideDivider) {
-                setup.valueTest1 = `cardSlidRight: ${cardSlide.cardSlidRight} LESS THAN slideDivider : ${setup.slideDivider}`
-                cardSlide.cardSlidRight = (setup.slideDivider - cardSlide.cardSlidRight) + cardSlide.cardSlidRight                
-            } 
+                cardSlide.cardSlidRight = (setup.slideDivider - cardSlide.cardSlidRight) + cardSlide.cardSlidRight
+                cardSlide.cardSlidLeft -= setup.divider
+                setup.valueTest1 = cardSlide.cardSlidLeft
+            }             
         }
-        setup.isCardSlidAll = false
-        cardSlide.cardSlidLeft = 0
-        //cardSlide.cardSlidLeft = setup.cardTotal 
+        setup.isCardSlidAll = false          
         // Identify remaining items after the card slid.
         Slide.doCardSlidRemaining()
         // Making values for the 'slide' by default.
@@ -585,11 +597,10 @@ window.addEventListener('resize', function() {
         // Making values for the 'slide count left'.
         Slide.doSlideCountLeft()
         Slide.doSlideCountLeftRemaining()       
-        setup.valueTest2 = `1 cardSlidRight : ${cardSlide.cardSlidRight} / divider : ${setup.divider}`
-        setup.valueTest3 = `cardSlidRightRemaining : ${cardSlide.cardSlidRightRemaining}`
     }     
     // Process 'translation'.
     Slide.processTranslation('translateX')
+    UI.disableEnableSlideButtons()
 
     traceValues('BROWSER RESIZE')
 }) // End window resize.
@@ -597,10 +608,9 @@ window.addEventListener('resize', function() {
 // Start page load.
 document.addEventListener('DOMContentLoaded', function() {    
     setup.eventState = 'page load'
-    const data = Data.getData()
-    console.log(`data is : ${data}`)
-    // Getting data from 'data.json'.
-    // Displaying testimonial card items.              
+    // Getting data from 'data.js object'. 
+    const data = Data.getData() 
+    // Displaying testimonial items.           
     UI.showTestimonial(data)
     // Displaying testimonial ratings.
     UI.showTestimonialRating(data)
@@ -622,6 +632,7 @@ document.addEventListener('DOMContentLoaded', function() {
     Slide.prepareSlide()
     // Initialize 'cardSlide.cardSlidRight' & 'cardSlide.cardSlidLeft.
     cardSlide.cardSlidRight = setup.divider
+    cardSlide.cardSlidLeft = setup.cardTotal - setup.divider
     //cardSlide.cardSlidLeft = setup.cardTotal 
     // Identify remaining items after the card slid.
     Slide.doCardSlidRemaining()
